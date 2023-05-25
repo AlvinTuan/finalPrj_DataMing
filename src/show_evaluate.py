@@ -26,6 +26,8 @@ def get2item_compareDSA():
   frequent_itemsets_ap = frequent_itemsets_ap.rename(columns={'support': 'AP support', 'itemsets': 'AP itemset'}).reset_index(drop=True)
 
   compare = pd.concat([frequent_itemsets_fp, frequent_itemsets_ap], axis=1)
+  compare["FP itemset"] = compare["FP itemset"].apply(lambda x: list(x))
+  compare["AP itemset"] = compare["AP itemset"].apply(lambda x: list(x))
   st.write(compare)
   
 #so sánh thời gian chạy 2 thuật toán

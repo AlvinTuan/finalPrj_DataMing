@@ -78,6 +78,7 @@ def show_apriori():
     frequent_itemsets = handleFrequentItemAP()
     if (min_support):
       frequent_itemsets = frequent_itemsets[frequent_itemsets['support'] >= min_support]
+    frequent_itemsets["itemsets"] = frequent_itemsets["itemsets"].apply(lambda x: list(x))
     st.dataframe(frequent_itemsets.head(number_get))
   
   
@@ -97,6 +98,8 @@ def show_apriori():
     st.write("Apriori Execution took: {} seconds".format(apriori_exec_time))
     # rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)
     rules_new = get_itemset(frequent_itemsets, min_support, min_confidence, min_lift, min_leverage)
+    rules_new["antecedents"] = rules_new["antecedents"].apply(lambda x: list(x))
+    rules_new["consequents"] = rules_new["consequents"].apply(lambda x: list(x))
     st.dataframe(rules_new)
     
   st.header("Recommendation")
